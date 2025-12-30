@@ -4,6 +4,7 @@ import (
 	"URLShortener/Models"
 	"URLShortener/Utils"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -50,7 +51,7 @@ func CreateShortURL(db *gorm.DB) gin.HandlerFunc {
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{
-			"short_url": "http://122.152.223.33:8080" + shortCode,
+			"short_url": os.Getenv("BASE_URL") + "/" + shortCode,
 		})
 	}
 }

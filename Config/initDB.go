@@ -2,14 +2,23 @@ package Config
 
 import (
 	"URLShortener/Models"
+	"fmt"
 	"log"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-func InitDB() *gorm.DB {
-	dsn := "url_shortener:Jhqlzy060103@@tcp(127.0.0.1:3306)/URL_shortener?charset=utf8mb4&parseTime=True&loc=Local"
+func InitDB(cfg *Config) *gorm.DB {
+	dsn := fmt.Sprintf(
+		"%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=True&loc=Local",
+		cfg.DBUser,
+		cfg.DBPassword,
+		cfg.DBHost,
+		cfg.DBPort,
+		cfg.DBName,
+		cfg.DBCharset,
+	)
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
