@@ -10,5 +10,4 @@ import (
 func RegisterRoutes(r *gin.Engine, db *gorm.DB) {
 	r.POST("/api/shorten", API.CreateShortURL(db))
 	r.GET("/:short_code", API.Redirect(db))
-	r.GET("/api/stats/:short_code", API.GetURLStats(db))
 }
